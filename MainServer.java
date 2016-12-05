@@ -1,5 +1,6 @@
 import java.awt.EventQueue;
 
+<<<<<<< HEAD
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -135,3 +136,6 @@ public class MainServer {
 		frame.setVisible(true);
 	}
 }
+=======
+// Test
+>>>>>>> 3624e5decb4502816fd1a0e2b4bad234bc488d8e
