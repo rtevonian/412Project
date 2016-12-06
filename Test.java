@@ -1,1 +1,1 @@
-//this is a test for git add command
+//this is a test class to try git add command
