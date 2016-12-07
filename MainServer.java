@@ -1,15 +1,11 @@
-<<<<<<< HEAD
+
 //this will be for the main server that creates chatrooms and prompts for screenname
 
 //this comment is to test if comitt worked correctly
 
 //another test comment
 
-=======
 import java.awt.EventQueue;
->>>>>>> 73eb197a6636aa542671f371aa0db31a3d1ddccf
-
-<<<<<<< HEAD
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -145,6 +141,4 @@ public class MainServer {
 		frame.setVisible(true);
 	}
 }
-=======
-// Test
->>>>>>> 3624e5decb4502816fd1a0e2b4bad234bc488d8e
+
