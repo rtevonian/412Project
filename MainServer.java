@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 //this will be for the main server that creates chatrooms and prompts for screenname
 
 //this comment is to test if comitt worked correctly
@@ -6,6 +7,8 @@
 //another test comment
 
 import java.awt.EventQueue;
+=======
+>>>>>>> cd713b338067c1eb650821799baf38ba10b10766
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -15,7 +18,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import java.awt.FlowLayout;
-
 import javax.swing.JTextPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -23,7 +25,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainServer {
+public class MainServer extends JFrame {
 	protected static int numUsers;
 	private static JFrame frame;
 	private JTextField txtPleaseEnterA;
@@ -49,6 +51,7 @@ public class MainServer {
 	 * Create the application.
 	 */
 	public MainServer() {
+		super("Main Hub");
 		initialize();
 	}
 
@@ -69,9 +72,40 @@ public class MainServer {
 		JTextArea Chatrooms = new JTextArea();
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
+		JButton btnUsername = new JButton("Create Username");
+		btnUsername.setEnabled(false);
+		btnUsername.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnUsername.setBounds(346, 529, 140, 23);
+		frame.getContentPane().add(btnUsername);
 		
 		txtPleaseEnterA = new JTextField();
 		txtPleaseEnterA.setText("Please enter a Username");
+		txtPleaseEnterA.getDocument().addDocumentListener(new DocumentListener(){
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				if(textField.getText().isEmpty()==false)
+					btnUsername.setEnabled(true);
+				
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// TODO Auto-generated method stub
+				if(textField.getText().isEmpty()==false)
+					btnUsername.setEnabled(true);
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				if(textField.getText().isEmpty()==false)
+					btnUsername.setEnabled(true);
+				
+			}});
 		txtPleaseEnterA.setBounds(10, 530, 326, 20);
 		frame.getContentPane().add(txtPleaseEnterA);
 		txtPleaseEnterA.setColumns(10);
@@ -133,6 +167,8 @@ public class MainServer {
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
 		
+		
+		
 	}
 	public void hideServer(){
 		this.frame.setVisible(false);
@@ -141,4 +177,7 @@ public class MainServer {
 		frame.setVisible(true);
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> cd713b338067c1eb650821799baf38ba10b10766
