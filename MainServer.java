@@ -1,6 +1,5 @@
 import java.awt.EventQueue;
 
-<<<<<<< HEAD
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -53,28 +52,28 @@ public class MainServer {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 900, 600);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		JComboBox chatList = new JComboBox();
 		chatList.setBounds(10, 5, 864, 20);
 		frame.getContentPane().add(chatList);
-		
+
 		JTextArea Chatrooms = new JTextArea();
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
-		
+
 		txtPleaseEnterA = new JTextField();
 		txtPleaseEnterA.setText("Please enter a Username");
 		txtPleaseEnterA.setBounds(10, 530, 326, 20);
 		frame.getContentPane().add(txtPleaseEnterA);
 		txtPleaseEnterA.setColumns(10);
-		
+
 		JButton btnCreateChatroom = new JButton("Create Chatroom");
 		btnCreateChatroom.setEnabled(false);
-		
-		
+
+
 		btnCreateChatroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chatList.addItem(textField.getText());
@@ -86,21 +85,21 @@ public class MainServer {
 				newRoom.ClientId=textField.getText();
 				newRoom.showClient();
 				hideServer();
-				
-				
-				
-					
-				
+
+
+
+
+
 			}
 		});
 		btnCreateChatroom.setBounds(349, 36, 137, 67);
 		frame.getContentPane().add(btnCreateChatroom);
-		
+
 		JTextArea txtrToCreateA = new JTextArea();
 		txtrToCreateA.setText("To create a new chatroom, please enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu ");
 		txtrToCreateA.setBounds(346, 106, 460, 244);
 		frame.getContentPane().add(txtrToCreateA);
-		
+
 		textField = new JTextField();
 		textField.getDocument().addDocumentListener(new DocumentListener(){
 
@@ -108,7 +107,7 @@ public class MainServer {
 			public void insertUpdate(DocumentEvent e) {
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
-				
+
 			}
 
 			@Override
@@ -122,12 +121,12 @@ public class MainServer {
 			public void changedUpdate(DocumentEvent e) {
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
-				
+
 			}});
 		textField.setBounds(496, 59, 187, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 	}
 	public void hideServer(){
 		this.frame.setVisible(false);
@@ -136,6 +135,3 @@ public class MainServer {
 		frame.setVisible(true);
 	}
 }
-=======
-// Test
->>>>>>> 3624e5decb4502816fd1a0e2b4bad234bc488d8e
