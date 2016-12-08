@@ -1,5 +1,5 @@
-import java.awt.EventQueue;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import java.awt.BorderLayout;
@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class Client {
+	private int NumUsers;
 	protected String ClientId=null;
 	private JFrame frame;
 	private JTextField textField;
@@ -52,6 +53,7 @@ public class Client {
 		textField.setColumns(10);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setBounds(10, 0, 414, 217);
 		frame.getContentPane().add(textArea);
 		
@@ -72,3 +74,4 @@ public class Client {
 		MainServer.showServer();
 	}
 }
+
