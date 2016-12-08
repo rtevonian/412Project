@@ -66,6 +66,17 @@ public class MainServer {
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
 		
+		JButton btnEnterChat = new JButton("Enter Chatroom");
+		btnEnterChat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String chatroom=(String) chatList.getSelectedItem();
+				JOptionPane.showMessageDialog(null, chatroom);
+			}
+		});
+		btnEnterChat.setBounds(346, 36, 140, 59);
+		frame.getContentPane().add(btnEnterChat);
+		btnEnterChat.setEnabled(false);
+		
 		JButton btnCreateChatroom = new JButton("Create Username");
 		btnCreateChatroom.setEnabled(false);
 		
@@ -79,6 +90,8 @@ public class MainServer {
 					}
 					else{
 				chatList.addItem(chatname);
+					if(chatList.getItemCount()>0)
+						btnEnterChat.setEnabled(true);
 				Chatrooms.append(textField.getText()+": Users "+ numUsers + "\n");
 				textField.setText("");
 				btnCreateChatroom.setEnabled(false);
@@ -107,11 +120,11 @@ public class MainServer {
 				
 			}
 		});
-		btnCreateChatroom.setBounds(349, 36, 137, 67);
+		btnCreateChatroom.setBounds(693, 36, 137, 59);
 		frame.getContentPane().add(btnCreateChatroom);
 		
 		JTextArea txtrToCreateA = new JTextArea();
-		txtrToCreateA.setText("To create a username, enter a name in the above text box and click the button\r\n\r\nTo create a new chatroom, register a username first enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu after regestering a username");
+		txtrToCreateA.setText("To create a username, enter a name in the above text box and click the button\r\n\r\nTo create a new chatroom, register a username first enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu after regestering a username, then press the enter chatroom button");
 		txtrToCreateA.setBounds(346, 106, 460, 244);
 		frame.getContentPane().add(txtrToCreateA);
 		
@@ -143,6 +156,8 @@ public class MainServer {
 		textField.setBounds(496, 59, 187, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		
 		
 		
 		
