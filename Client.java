@@ -14,6 +14,15 @@ public class Client {
 	private JFrame frame;
 	private JTextField textField;
 
+	// Networking Variables
+	private ObjectOutputStream output;
+	private ObjectInputStream input;
+	private Socket clientSocket;
+	private String message;
+	private String addr = null; // Allow IP address?
+	private Scanner scan;
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -36,6 +45,13 @@ public class Client {
 	public Client() {
 		initialize();
 		this.frame.setVisible(false);
+		// Start Networking Connection
+		try{
+			startClient();
+		}
+		catch(IOException io){
+			io.printStackTrace();
+		}
 	}
 
 	/**
@@ -46,17 +62,17 @@ public class Client {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
+
 		textField = new JTextField();
 		textField.setBounds(10, 230, 259, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(10, 0, 414, 217);
 		frame.getContentPane().add(textArea);
-		
+
 		JButton btnNewButton = new JButton("Leave");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,6 +82,50 @@ public class Client {
 		btnNewButton.setBounds(289, 229, 114, 23);
 		frame.getContentPane().add(btnNewButton);
 	}
+	// Connect to the Server
+	private void startClient() throws IOException{
+		try{
+			print("Connecting to the server...\n");
+			if(addr == null){
+				clientSocket = new Socket(InetAddress.getByName("127.0.0.1"), 4120);
+			}else{
+				clientSocket = new Socket(InetAddress.getByName(addr), 4120);
+			}
+			print("Connected to Server!\n");
+
+			output = new ObjectOutputStream(clientSocket.getOutputStream());
+			output.flush();
+			input = new ObjectInputStream(clientSocket.getInputStream());
+
+
+
+			// Server sends it's salutation. Read the message and display it.
+			try{
+				String message = (String) input.readObject();
+				print(message);
+			}
+			catch(ClassNotFoundException e){
+				print("Object unidentified\n");
+			}
+			ClientIO thread = new ClientIO(input, output);
+			thread.start();
+			scan = new Scanner(System.in);
+			do{
+				// Get String from standard in
+				message = scan.nextLine();
+				//message+="\n";
+				output.writeObject(message);
+				output.flush();
+			}while(!message.equals("EXIT"));
+			output.close();
+			input.close();
+			clientSocket.close();
+		}
+		catch(EOFException eof){
+			print("Client terminated unexpectedly\n");
+		}
+	}
+
 	public void showClient(){
 		this.frame.setVisible(true);
 	}
@@ -73,5 +133,7 @@ public class Client {
 		this.frame.dispose();
 		MainServer.showServer();
 	}
+	private void print(String s){
+		System.out.printf(s);
+	}
 }
-
