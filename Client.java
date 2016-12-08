@@ -5,7 +5,6 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
@@ -28,28 +27,23 @@ public class Client {
 	private String message;
 	private String addr = null; // Allow IP address?
 	private Scanner scan;
-
+	Socket connection;
+	int indexNum;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Client window = new Client();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		
+		
 	}
 
 	/**
 	 * Create the application.
 	 */
-	public Client() {
+	public Client(Socket s, int i) {
+		connection=s;
+		indexNum=i;
 		initialize();
 		this.frame.setVisible(false);
 		// Start Networking Connection

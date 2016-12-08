@@ -14,17 +14,15 @@ public class GUIServer{
 		}
 		
 	}
-	public void execute() throws IOException{
-		try{
+	public void execute()  {
+		
 			while(true){
-			users.set(index,new MainServer(server.accept(),this,index));
+			users.set(index,new MainServer());
 			index++;
 			
 			}
-		}
-		catch(IOException e){
-			
-		}
+		
+		
 		
 		
 	}

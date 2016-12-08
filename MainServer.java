@@ -23,12 +23,18 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.net.InetAddress;
 import java.lang.Thread;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class MainServer extends JApplet implements Runnable{
+public class MainServer extends JFrame implements Runnable{
 	protected static int numUsers;
 	private static JFrame frame;
 	private JTextField textField;
 	private ArrayList usernames=new ArrayList();
+	private ArrayList clients=new ArrayList();
 	private boolean validUsername;
 	private boolean validChatname;
 	static int index;
@@ -36,7 +42,8 @@ public class MainServer extends JApplet implements Runnable{
 	private DataInputStream input;
 	private DataOutputStream output;
 	private Thread outputThread;
-	
+	private ServerSocket server;
+	private ExecutorService runServer;
 	
 
 	/**
@@ -47,7 +54,7 @@ public class MainServer extends JApplet implements Runnable{
 	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GUIServer gui= new GUIServer();
+					
 					MainServer window = new MainServer();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -62,6 +69,13 @@ public class MainServer extends JApplet implements Runnable{
 	 */
 	public MainServer() {
 		initialize();
+		runServer=Executors.newFixedThreadPool(15);
+		try{
+		server=new ServerSocket(12345,15);
+		}
+		catch(IOException e){
+		e.printStackTrace();
+		}
 	}
 
 	/**
@@ -200,6 +214,11 @@ public class MainServer extends JApplet implements Runnable{
 	}
 	public static void showServer(){
 		frame.setVisible(true);
+	}
+	public void execute(){
+	while(true)
+		users.set(index,new Client(server.accept(), index));
+		index++;
 	}
 	public void run(){
 		
