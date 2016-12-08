@@ -29,7 +29,7 @@ public class MainServer {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
+	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					MainServer window = new MainServer();
@@ -54,27 +54,17 @@ public class MainServer {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 900, 600);
-
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-
+		
 		JComboBox chatList = new JComboBox();
 		chatList.setBounds(10, 5, 864, 20);
 		frame.getContentPane().add(chatList);
-
+		
 		JTextArea Chatrooms = new JTextArea();
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
-<<<<<<< HEAD
-
-		txtPleaseEnterA = new JTextField();
-		txtPleaseEnterA.setText("Please enter a Username");
-		txtPleaseEnterA.setBounds(10, 530, 326, 20);
-		frame.getContentPane().add(txtPleaseEnterA);
-		txtPleaseEnterA.setColumns(10);
-
-		JButton btnCreateChatroom = new JButton("Create Chatroom");
-=======
 		
 		JButton btnEnterChat = new JButton("Enter Chatroom");
 		btnEnterChat.addActionListener(new ActionListener() {
@@ -88,10 +78,9 @@ public class MainServer {
 		btnEnterChat.setEnabled(false);
 		
 		JButton btnCreateChatroom = new JButton("Create Username");
->>>>>>> 1745f75b153f21cb8abb453bd510c5a31bf20c0b
 		btnCreateChatroom.setEnabled(false);
-
-
+		
+		
 		btnCreateChatroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(validUsername){
@@ -106,17 +95,10 @@ public class MainServer {
 				Chatrooms.append(textField.getText()+": Users "+ numUsers + "\n");
 				textField.setText("");
 				btnCreateChatroom.setEnabled(false);
-				Client newRoom=new Client();
-				newRoom.ClientId=textField.getText();
-				newRoom.showClient();
+				Server newRoom=new Server();
+				//newRoom.ClientId=textField.getText();
+				//newRoom.showClient();
 				hideServer();
-<<<<<<< HEAD
-
-
-
-
-
-=======
 					}
 				}
 				else{
@@ -136,17 +118,16 @@ public class MainServer {
 				
 					
 				
->>>>>>> 1745f75b153f21cb8abb453bd510c5a31bf20c0b
 			}
 		});
 		btnCreateChatroom.setBounds(693, 36, 137, 59);
 		frame.getContentPane().add(btnCreateChatroom);
-
+		
 		JTextArea txtrToCreateA = new JTextArea();
 		txtrToCreateA.setText("To create a username, enter a name in the above text box and click the button\r\n\r\nTo create a new chatroom, register a username first enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu after regestering a username, then press the enter chatroom button");
 		txtrToCreateA.setBounds(346, 106, 460, 244);
 		frame.getContentPane().add(txtrToCreateA);
-
+		
 		textField = new JTextField();
 		textField.getDocument().addDocumentListener(new DocumentListener(){
 
@@ -154,7 +135,7 @@ public class MainServer {
 			public void insertUpdate(DocumentEvent e) {
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
-
+				
 			}
 
 			@Override
@@ -169,30 +150,19 @@ public class MainServer {
 			public void changedUpdate(DocumentEvent e) {
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
-<<<<<<< HEAD
-
-=======
 					
 				
->>>>>>> 1745f75b153f21cb8abb453bd510c5a31bf20c0b
 			}});
 		textField.setBounds(496, 59, 187, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
-<<<<<<< HEAD
-
-=======
 		
 		
 		
 		
 		
-<<<<<<< HEAD
 		
 		
-=======
->>>>>>> 1745f75b153f21cb8abb453bd510c5a31bf20c0b
->>>>>>> c606ccf10859532f87ce8a6b3c66b199260cd215
 	}
 	public void hideServer(){
 		this.frame.setVisible(false);
@@ -200,5 +170,4 @@ public class MainServer {
 	public static void showServer(){
 		frame.setVisible(true);
 	}
-	
 }
