@@ -1,5 +1,10 @@
 import java.awt.EventQueue;
-
+import javax.swing.JApplet;
+import java.net.ServerSocket;
+import java.io.IOException;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -16,22 +21,33 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.net.InetAddress;
+import java.lang.Thread;
 
-public class MainServer {
+public class MainServer extends JApplet implements Runnable{
 	protected static int numUsers;
 	private static JFrame frame;
 	private JTextField textField;
 	private ArrayList usernames=new ArrayList();
 	private boolean validUsername;
 	private boolean validChatname;
+	static int index;
+	private Socket connection;
+	private DataInputStream input;
+	private DataOutputStream output;
+	private Thread outputThread;
+	
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main (String[] args) throws IOException{
+		
 	EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					GUIServer gui= new GUIServer();
 					MainServer window = new MainServer();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -95,9 +111,12 @@ public class MainServer {
 				Chatrooms.append(textField.getText()+": Users "+ numUsers + "\n");
 				textField.setText("");
 				btnCreateChatroom.setEnabled(false);
-				Server newRoom=new Server();
-				//newRoom.ClientId=textField.getText();
-				//newRoom.showClient();
+				//Server newRoom=new Server();
+				//newRoom.start();
+				Client newClient= new Client();
+				newClient.ClientId=(String)usernames.get(index);
+				newClient.showClient();
+				JOptionPane.showMessageDialog(null,newClient.ClientId);
 				hideServer();
 					}
 				}
@@ -164,10 +183,26 @@ public class MainServer {
 		
 		
 	}
+	public void start(){
+		try{
+		connection=new Socket(InetAddress.getByName("127.0.0.1"),6000);
+		input=new DataInputStream(connection.getInputStream());
+		output=new DataOutputStream(connection.getOutputStream());
+		}
+		catch(IOException e){
+		e.printStackTrace();
+		}
+		outputThread=new Thread(this);
+		outputThread.start();
+	}
 	public void hideServer(){
 		this.frame.setVisible(false);
 	}
 	public static void showServer(){
 		frame.setVisible(true);
 	}
+	public void run(){
+		
+	}
+	
 }

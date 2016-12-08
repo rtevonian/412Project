@@ -20,6 +20,7 @@ public class HandleClient extends Thread
     this.output = output;
     this.input = input;
     nameList = list;
+	/*
     String msg="Enter a username: ";
     output.writeObject(msg);
     output.flush();
@@ -29,6 +30,7 @@ public class HandleClient extends Thread
     catch(ClassNotFoundException e){
       print("Unknown object received\n");
     }
+	*/
     my_id = id;
     print("Username from client: " + username+"\n");
     print(username+" has id number "+id +"\n");

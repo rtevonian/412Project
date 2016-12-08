@@ -70,15 +70,23 @@ public class Client {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		textField = new JTextField();
-		textField.setBounds(10, 230, 259, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		
 
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(10, 0, 414, 217);
 		frame.getContentPane().add(textArea);
+		
+		textField = new JTextField();
+		textField.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				textArea.append(textField.getText()+"\n");
+				textField.setText("");
+			}
+		});
+		textField.setBounds(10, 230, 259, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
 
 		JButton btnNewButton = new JButton("Leave");
 		btnNewButton.addActionListener(new ActionListener() {
