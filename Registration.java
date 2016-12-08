@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -8,8 +7,14 @@ import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 
-public class Registration {
+public class Registration extends JFrame {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -57,23 +62,25 @@ public class Registration {
 		frame.getContentPane().add(passwordField);
 		
 		JLabel lblNewLabel = new JLabel("Username");
-		lblNewLabel.setBounds(175, 58, 59, 14);
+		lblNewLabel.setBounds(175, 58, 100, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(175, 111, 46, 14);
+		lblPassword.setBounds(175, 111, 100, 14);
 		frame.getContentPane().add(lblPassword);
 		
 		JLabel lblPasswordMustBe = new JLabel("Password must be at\r\nleast 6 characters");
-		lblPasswordMustBe.setBounds(49, 139, 194, 20);
+		lblPasswordMustBe.setBounds(49, 139, 300, 20);
 		frame.getContentPane().add(lblPasswordMustBe);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				private String username = textField.getText();
+				private String password = passwordField.getText();
 			}
 		});
-		btnRegister.setBounds(76, 170, 89, 23);
+		btnRegister.setBounds(49, 170, 100, 23);
 		frame.getContentPane().add(btnRegister);
 	}
 

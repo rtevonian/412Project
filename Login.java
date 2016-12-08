@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login {
+public class Login extends JFrame {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -52,11 +52,11 @@ public class Login {
 		textField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Username");
-		lblNewLabel.setBounds(184, 76, 66, 14);
+		lblNewLabel.setBounds(184, 76, 100, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Password");
-		lblNewLabel_1.setBounds(184, 109, 66, 14);
+		lblNewLabel_1.setBounds(184, 109, 100, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		passwordField = new JPasswordField();
@@ -74,9 +74,12 @@ public class Login {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Registration form=new Registration();
+				form.setVisible(true);
+				setVisible(false);
 			}
 		});
-		btnRegister.setBounds(148, 137, 89, 23);
+		btnRegister.setBounds(148, 137, 125, 23);
 		frame.getContentPane().add(btnRegister);
 	}
 }

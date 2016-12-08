@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 //this will be for the main server that creates chatrooms and prompts for screenname
 
 //this comment is to test if comitt worked correctly
@@ -7,8 +6,6 @@
 //another test comment
 
 import java.awt.EventQueue;
-=======
->>>>>>> cd713b338067c1eb650821799baf38ba10b10766
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -52,7 +49,10 @@ public class MainServer extends JFrame {
 	 */
 	public MainServer() {
 		super("Main Hub");
+		pack();
 		initialize();
+		Login screen= new Login();
+		hideServer();
 	}
 
 	/**
@@ -70,45 +70,13 @@ public class MainServer extends JFrame {
 		frame.getContentPane().add(chatList);
 		
 		JTextArea Chatrooms = new JTextArea();
+		Chatrooms.setEditable(false);
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
-		JButton btnUsername = new JButton("Create Username");
-		btnUsername.setEnabled(false);
-		btnUsername.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
-		btnUsername.setBounds(346, 529, 140, 23);
-		frame.getContentPane().add(btnUsername);
 		
-		txtPleaseEnterA = new JTextField();
-		txtPleaseEnterA.setText("Please enter a Username");
-		txtPleaseEnterA.getDocument().addDocumentListener(new DocumentListener(){
-
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				if(textField.getText().isEmpty()==false)
-					btnUsername.setEnabled(true);
-				
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				// TODO Auto-generated method stub
-				if(textField.getText().isEmpty()==false)
-					btnUsername.setEnabled(true);
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				if(textField.getText().isEmpty()==false)
-					btnUsername.setEnabled(true);
-				
-			}});
-		txtPleaseEnterA.setBounds(10, 530, 326, 20);
-		frame.getContentPane().add(txtPleaseEnterA);
-		txtPleaseEnterA.setColumns(10);
+		
+		
+		
 		
 		JButton btnCreateChatroom = new JButton("Create Chatroom");
 		btnCreateChatroom.setEnabled(false);
@@ -117,7 +85,7 @@ public class MainServer extends JFrame {
 		btnCreateChatroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				chatList.addItem(textField.getText());
-				numUsers++;
+				
 				Chatrooms.append(textField.getText()+": Users "+ numUsers + "\n");
 				textField.setText("");
 				btnCreateChatroom.setEnabled(false);
@@ -136,6 +104,7 @@ public class MainServer extends JFrame {
 		frame.getContentPane().add(btnCreateChatroom);
 		
 		JTextArea txtrToCreateA = new JTextArea();
+		txtrToCreateA.setEditable(false);
 		txtrToCreateA.setText("To create a new chatroom, please enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu ");
 		txtrToCreateA.setBounds(346, 106, 460, 244);
 		frame.getContentPane().add(txtrToCreateA);
@@ -177,7 +146,4 @@ public class MainServer extends JFrame {
 		frame.setVisible(true);
 	}
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> cd713b338067c1eb650821799baf38ba10b10766
