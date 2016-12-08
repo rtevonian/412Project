@@ -13,6 +13,7 @@ public class HandleClient extends Thread
   private String username;
   final private ArrayList<String> nameList;
   private int my_id;
+  private ArrayList<ObjectOutputStream> group;
 
   // Thread constructor
   public HandleClient(Socket theConnection, ArrayList<String> list, int id, ObjectOutputStream output, ObjectInputStream input) throws IOException{
@@ -20,7 +21,6 @@ public class HandleClient extends Thread
     this.output = output;
     this.input = input;
     nameList = list;
-	/*
     String msg="Enter a username: ";
     output.writeObject(msg);
     output.flush();
@@ -30,13 +30,13 @@ public class HandleClient extends Thread
     catch(ClassNotFoundException e){
       print("Unknown object received\n");
     }
-	*/
     my_id = id;
     print("Username from client: " + username+"\n");
     print(username+" has id number "+id +"\n");
     nameList.add(username);
     print("Displaying Available usernames:\n");
     printList();
+    group = new ArrayList<ObjectOutputStream>();
 
   }
 
@@ -51,6 +51,7 @@ public class HandleClient extends Thread
           fromClient = (String) input.readObject();
           String message = username+":"+fromClient;
           println(message);
+          sendToGroup(message);
         }
         catch(ClassNotFoundException e){
           print("Unknown object received\n");
@@ -99,6 +100,42 @@ public class HandleClient extends Thread
 
   public ObjectOutputStream getOut(){
     return output;
+  }
+
+  public void test(){
+    System.out.println("The Thread object has been called to invoke test");
+  }
+
+  public ObjectOutputStream getOutputStream(){
+    return this.output;
+  }
+
+  public String getUsername(){
+    return username;
+  }
+
+  public void setUsername(String username){
+    this.username = username;
+  }
+
+  public void addToGroup(ObjectOutputStream newMember){
+    if(newMember != output && !group.contains(newMember)){
+      group.add(newMember);
+    }
+
+  }
+
+  public void removeFromGroup(ObjectOutputStream member){
+    group.remove(member);
+  }
+
+  public void sendToGroup(String message) throws IOException{
+    for(int i = 0; i < group.size(); i++){
+      if(group.get(i) != output){
+        group.get(i).writeObject(message);
+        group.get(i).flush();
+      }
+    }
   }
 
 }
