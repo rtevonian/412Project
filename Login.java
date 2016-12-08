@@ -11,8 +11,8 @@ import java.awt.event.ActionEvent;
 public class Login extends JFrame {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JPasswordField passwordField;
+	 JTextField textField;
+	 JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -40,6 +40,7 @@ public class Login extends JFrame {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
@@ -75,11 +76,17 @@ public class Login extends JFrame {
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Registration form=new Registration();
-				form.setVisible(true);
-				setVisible(false);
+				form.showRegister();
+				closeLogin();
 			}
 		});
 		btnRegister.setBounds(148, 137, 125, 23);
 		frame.getContentPane().add(btnRegister);
+	}
+	public void showLogin(){
+		this.frame.setVisible(true);
+	}
+	public void closeLogin(){
+		this.frame.dispose();
 	}
 }

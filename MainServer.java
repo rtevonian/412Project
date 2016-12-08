@@ -1,11 +1,5 @@
-
-//this will be for the main server that creates chatrooms and prompts for screenname
-
-//this comment is to test if comitt worked correctly
-
-//another test comment
-
 import java.awt.EventQueue;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -21,12 +15,15 @@ import javax.swing.event.DocumentListener;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
-public class MainServer extends JFrame {
+public class MainServer {
 	protected static int numUsers;
 	private static JFrame frame;
-	private JTextField txtPleaseEnterA;
 	private JTextField textField;
+	private ArrayList usernames=new ArrayList();
+	private boolean validUsername;
+	private boolean validChatname;
 
 	/**
 	 * Launch the application.
@@ -48,11 +45,7 @@ public class MainServer extends JFrame {
 	 * Create the application.
 	 */
 	public MainServer() {
-		super("Main Hub");
-		pack();
 		initialize();
-		Login screen= new Login();
-		hideServer();
 	}
 
 	/**
@@ -70,22 +63,22 @@ public class MainServer extends JFrame {
 		frame.getContentPane().add(chatList);
 		
 		JTextArea Chatrooms = new JTextArea();
-		Chatrooms.setEditable(false);
 		Chatrooms.setBounds(10, 30, 326, 467);
 		frame.getContentPane().add(Chatrooms);
 		
-		
-		
-		
-		
-		JButton btnCreateChatroom = new JButton("Create Chatroom");
+		JButton btnCreateChatroom = new JButton("Create Username");
 		btnCreateChatroom.setEnabled(false);
 		
 		
 		btnCreateChatroom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				chatList.addItem(textField.getText());
-				
+				if(validUsername){
+				String chatname=textField.getText();
+					if(chatname==""){
+					JOptionPane.showMessageDialog(null, "chat name can not be blank");
+					}
+					else{
+				chatList.addItem(chatname);
 				Chatrooms.append(textField.getText()+": Users "+ numUsers + "\n");
 				textField.setText("");
 				btnCreateChatroom.setEnabled(false);
@@ -93,7 +86,21 @@ public class MainServer extends JFrame {
 				newRoom.ClientId=textField.getText();
 				newRoom.showClient();
 				hideServer();
-				
+					}
+				}
+				else{
+					String possUsername=textField.getText();
+					if(usernames.contains(possUsername))
+						JOptionPane.showMessageDialog(null,"Username already exists please use another");
+					else{
+						usernames.add(possUsername);
+						JOptionPane.showMessageDialog(null,"Username Registered");
+						validUsername=true;
+						btnCreateChatroom.setEnabled(false);
+						textField.setText("");
+						btnCreateChatroom.setText("Create Chatroom");
+					}
+				}
 				
 				
 					
@@ -104,8 +111,7 @@ public class MainServer extends JFrame {
 		frame.getContentPane().add(btnCreateChatroom);
 		
 		JTextArea txtrToCreateA = new JTextArea();
-		txtrToCreateA.setEditable(false);
-		txtrToCreateA.setText("To create a new chatroom, please enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu ");
+		txtrToCreateA.setText("To create a username, enter a name in the above text box and click the button\r\n\r\nTo create a new chatroom, register a username first enter a chatroom name in\r\nthe above text box and then click the button\r\n\r\nTo join a pre-existing chatroom, please select one from\r\nthe drop down menu after regestering a username");
 		txtrToCreateA.setBounds(346, 106, 460, 244);
 		frame.getContentPane().add(txtrToCreateA);
 		
@@ -124,17 +130,21 @@ public class MainServer extends JFrame {
 				// TODO Auto-generated method stub
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
+					
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
 				if(textField.getText().isEmpty()==false)
 					btnCreateChatroom.setEnabled(true);
+					
 				
 			}});
 		textField.setBounds(496, 59, 187, 20);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		
 		
 		
 		
@@ -145,5 +155,5 @@ public class MainServer extends JFrame {
 	public static void showServer(){
 		frame.setVisible(true);
 	}
+	
 }
-

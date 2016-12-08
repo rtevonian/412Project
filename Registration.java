@@ -5,6 +5,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -19,6 +20,13 @@ public class Registration extends JFrame {
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
+	private Connection connect=null;
+	private ResultSet results;
+	private Statement statement;
+	String dbURL= "jdbc:mysql//dbserv.cs.siu.edu/rtevonian";
+	String dbUser= "rtevonian";
+	String dbPass= "trEx3EH7";
+	
 
 	/**
 	 * Launch the application.
@@ -41,6 +49,7 @@ public class Registration extends JFrame {
 	 */
 	public Registration() {
 		initialize();
+		this.frame.setVisible(false);
 	}
 
 	/**
@@ -76,12 +85,27 @@ public class Registration extends JFrame {
 		JButton btnRegister = new JButton("Register");
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				private String username = textField.getText();
-				private String password = passwordField.getText();
+				 String username = textField.getText();
+				 String password = passwordField.getText();
+				try{
+					Driver drive=new mysql.
+				}
+				catch (SQLException ex){
+					JOptionPane.showMessageDialog(null,"SQL Exception,"+ e.toString());
+				}
 			}
 		});
 		btnRegister.setBounds(49, 170, 100, 23);
 		frame.getContentPane().add(btnRegister);
+	}
+	public void showRegister(){
+		this.frame.setVisible(true);
+	}
+	public void registered(){
+		Login screen=new Login();
+		screen.showLogin();
+		this.frame.dispose();
+		
 	}
 
 }
