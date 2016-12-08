@@ -70,13 +70,13 @@ public class Client {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
-		
+
 
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(10, 0, 414, 217);
 		frame.getContentPane().add(textArea);
-		
+
 		textField = new JTextField();
 		textField.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -91,6 +91,10 @@ public class Client {
 		JButton btnNewButton = new JButton("Leave");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				//Working the way HandleClient does, this should remove the Client
+				output.writeObject("EXIT");
+				output.flush();
 				close();
 			}
 		});

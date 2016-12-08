@@ -11,16 +11,18 @@ public class HandleClient extends Thread
   private ObjectOutputStream output;
   private ObjectInputStream input;
   private String username;
-  final private ArrayList<String> nameList;
+  //final private ArrayList<String> nameList;
   private int my_id;
   private ArrayList<ObjectOutputStream> group;
+  final private ArrayList<HandleClient> otherClients;
 
   // Thread constructor
-  public HandleClient(Socket theConnection, ArrayList<String> list, int id, ObjectOutputStream output, ObjectInputStream input) throws IOException{
+  public HandleClient(Socket theConnection, ArrayList<HandleClient> otherClients, int id, ObjectOutputStream output, ObjectInputStream input) throws IOException{
     connection = theConnection;
     this.output = output;
     this.input = input;
-    nameList = list;
+    this.otherClients = otherClients;
+    //nameList = list;
     String msg="Enter a username: ";
     output.writeObject(msg);
     output.flush();
@@ -33,9 +35,9 @@ public class HandleClient extends Thread
     my_id = id;
     print("Username from client: " + username+"\n");
     print(username+" has id number "+id +"\n");
-    nameList.add(username);
+    //nameList.add(username);
     print("Displaying Available usernames:\n");
-    printList();
+    //printList();
     group = new ArrayList<ObjectOutputStream>();
 
   }
@@ -49,14 +51,14 @@ public class HandleClient extends Thread
       do{
         try{
           fromClient = (String) input.readObject();
-          String message = username+":"+fromClient;
+          String message = username+": "+fromClient;
           println(message);
           sendToGroup(message);
         }
         catch(ClassNotFoundException e){
           print("Unknown object received\n");
         }
-
+        /*
         if(fromClient.equals("LIST")){
           printList();
           output.writeObject("List of Users:\n");
@@ -66,17 +68,21 @@ public class HandleClient extends Thread
             output.flush();
           }
         }
+        */
 
       }while(!fromClient.equals("EXIT"));
 
       // Server recieves EXIT, echo it back to Client
       output.writeObject("EXIT");
+      group.clear();
+      leaveGroup(output);
       output.flush();
 
       // Remove username from server's list of users connected
-      nameList.remove(username);
+      //nameList.remove(username);
 
       // Client exited from connection to server. Close streams.
+      otherClients.remove(this);
       input.close();
       output.close();
       connection.close();
@@ -93,14 +99,11 @@ public class HandleClient extends Thread
   public void println(String s){
     System.out.println(s);
   }
-
+/*
   private void printList(){
     System.out.println(nameList);
   }
-
-  public ObjectOutputStream getOut(){
-    return output;
-  }
+*/
 
   public void test(){
     System.out.println("The Thread object has been called to invoke test");
@@ -127,6 +130,18 @@ public class HandleClient extends Thread
 
   public void removeFromGroup(ObjectOutputStream member){
     group.remove(member);
+  }
+
+  public void leaveGroup(ObjectOutputStream removeMe){
+    for(int i = 0; i < otherClients.size(); i++){
+      if(otherClients.get(i).getGroup().contains(removeMe)){
+        otherClients.get(i).removeFromGroup(removeMe);
+      }
+    }
+  }
+
+  public ArrayList<ObjectOutputStream> getGroup(){
+    return group;
   }
 
   public void sendToGroup(String message) throws IOException{

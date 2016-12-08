@@ -41,7 +41,7 @@ public class Server extends Thread {
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
 			input = new ObjectInputStream(connection.getInputStream());
-			HandleClient thread = new HandleClient(connection, nameList, num_clients, output, input);
+			HandleClient thread = new HandleClient(connection, allClients, num_clients, output, input);
 			num_clients++;
 			thread.start();
       allClients.add(thread);
