@@ -13,12 +13,12 @@ public class Server extends Thread {
   private ObjectOutputStream output;
   private ObjectInputStream input;
   final private ArrayList<String> nameList;
-  private ArrayList<ObjectOutputStream> allClients;
+  private ArrayList<HandleClient> allClients;
   private int num_clients=0;
 
   public Server(){
     nameList = new ArrayList<String>();
-    allClients = new ArrayList<ObjectOutputStream>();
+    allClients = new ArrayList<HandleClient>();
     try{
       server = new ServerSocket(4120, 2048);
     }
@@ -30,7 +30,7 @@ public class Server extends Thread {
   void print(String s){
     System.out.print(s);
   }
-  
+
   public void run(){
 	while(true){
         print("Waiting for a connetion\n");
@@ -40,12 +40,14 @@ public class Server extends Thread {
 			print("Connection received!\n");
 			output = new ObjectOutputStream(connection.getOutputStream());
 			output.flush();
-			allClients.add(output);
 			input = new ObjectInputStream(connection.getInputStream());
 			HandleClient thread = new HandleClient(connection, nameList, num_clients, output, input);
 			num_clients++;
 			thread.start();
-			output.writeObject("Test");
+      allClients.add(thread);
+
+      // Code used for testing, not necessary for real thing
+      /*
 			System.out.printf("num_clients = %d\n", num_clients);
 			if(num_clients > 1){
 				String chat = "Users available to chat: ";
@@ -60,6 +62,7 @@ public class Server extends Thread {
 					}
 				}
 			}
+      */
 		}
 		catch(EOFException eof)
 		{
@@ -68,7 +71,7 @@ public class Server extends Thread {
 		catch(IOException io){
 			io.printStackTrace();
 		}
-        
+
       }
   }
 }
